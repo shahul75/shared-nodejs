@@ -14,9 +14,9 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [14.x]
+#    strategy:
+#      matrix:
+#        node-version: [14.x]
 #        node-version: [14.x, 16.x, 18.x]
 
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
@@ -27,9 +27,9 @@ jobs:
       run: echo "CALLER_NAME=$(npm pkg get name | sed "s/\"//g")" >> $GITHUB_ENV
     - name: Set default node version
       run: echo "NODE_VERSION=14.x" >> $GITHUB_ENV
-    - name: Use Node.js ${{ matrix.node-version }}
+    - name: Use Node.js ${{ env.NODE_VERSION }}
       uses: actions/setup-node@v3
       with:
-        node-version: ${{ matrix.node-version }}
+        node-version: ${{ env.NODE_VERSION }}
         cache: 'npm'
     - run: npm ci
